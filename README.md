@@ -35,9 +35,25 @@ Telegram-бот для продажи VPN-подписок: от первого 
 - `main.py` - точка входа
 - `dozhrvpn_bot/` - основной код бота
 - `.env.example` - пример конфигурации
+- `Dockerfile` - образ приложения
+- `docker-compose.yml` - быстрый запуск бота и PostgreSQL
 - `requirements.txt` - зависимости
 
 ## Быстрый старт
+
+### Docker Compose
+
+```bash
+copy .env.example .env
+docker compose up -d --build
+docker compose logs -f bot
+```
+
+Перед запуском заполните в `.env` как минимум `BOT_TOKEN`, `ADMIN_IDS`, `REQUIRED_CHANNEL_ID`, `REQUIRED_CHANNEL_URL`, `REMNAWAVE_BASE_URL` и данные для авторизации в Remnawave.
+
+`docker-compose.yml` поднимает PostgreSQL и сам передает боту `DATABASE_URL`. Если нужен внешний PostgreSQL, укажите свой `DATABASE_URL` в `.env`.
+
+### Локально
 
 ```bash
 python -m venv .venv
@@ -66,7 +82,7 @@ python main.py
 Пример DSN:
 
 ```env
-DATABASE_URL=postgresql://127.0.0.1:5432/remnawave_tg_bot
+DATABASE_URL=postgresql://<user>:<password>@127.0.0.1:5432/remnawave_tg_bot
 ```
 
 Бот сам создает таблицы при старте.
