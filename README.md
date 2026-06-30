@@ -1,10 +1,33 @@
-# Remnawave Telegram Bot
+<h1 align="center">Remnawave Telegram Bot</h1>
 
-Telegram-бот для продажи VPN-подписок: от первого `/start` до автоматической выдачи subscription URL после оплаты.
+<p align="center">
+  Telegram-бот для продажи VPN-подписок с оплатой, админкой, промокодами, рефералкой и автоматической выдачей subscription URL через Remnawave.
+</p>
 
-Пользователь проходит обязательную подписку на канал, выбирает тариф, оплачивает удобным способом, а бот проверяет статус счета и активирует подписку в Remnawave.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.12">
+  <img src="https://img.shields.io/badge/Aiogram-3-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" alt="Aiogram 3">
+  <img src="https://img.shields.io/badge/PostgreSQL-ready-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
+  <img src="https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker Compose">
+</p>
 
-## Скриншоты
+<p align="center">
+  <a href="#screenshots">Скриншоты</a> •
+  <a href="#features">Функционал</a> •
+  <a href="#quick-start">Быстрый старт</a> •
+  <a href="#configuration">Конфигурация</a> •
+  <a href="#contacts">Контакты</a>
+</p>
+
+---
+
+## Overview
+
+Бот закрывает полный сценарий продажи VPN-подписки: пользователь запускает `/start`, проходит проверку подписки на канал, выбирает тариф, оплачивает удобным способом, а после подтверждения платежа получает subscription URL.
+
+Локальная база хранит пользователей, заказы, промокоды, настройки, рассылки и состояние подписок. Remnawave отвечает за выдачу и продление доступа, а бот синхронизирует данные и аккуратно обрабатывает повторные оплаты, продления и неактивные счета.
+
+## Screenshots
 
 | Главное меню | Тарифы |
 | --- | --- |
@@ -22,81 +45,95 @@ Telegram-бот для продажи VPN-подписок: от первого 
 | --- |
 | <img src="screenshots/07-invoice.jpg" alt="Счет на оплату" width="420"> |
 
-## Что под капотом
+## Features
 
-- Python + Aiogram 3
-- PostgreSQL для хранения пользователей, заказов, промокодов, настроек и рассылок
-- Интеграция с Remnawave для выдачи и продления подписок
-- Оплата через Crypto Bot, YooMoney и FreeKassa
-- Проверка статуса платежа по кнопке, без вебхуков
-- FSM-логика, админские сценарии и многоуровневая обработка ошибок
+| Блок | Что умеет |
+| --- | --- |
+| Продажа тарифов | Выбор плана, расчет стоимости, скидки и бонусные дни |
+| Профиль | Остаток дней, дата окончания, реферальный код, subscription URL |
+| Оплаты | Crypto Bot, YooMoney, FreeKassa, проверка статуса без вебхуков |
+| Remnawave | Создание, продление и синхронизация подписок |
+| Бонусы | Промокоды, скидки на следующую оплату, бонусные дни |
+| Рефералка | Персональная ссылка и награда за первого оплатившего реферала |
+| Инструкции | Отдельные ссылки для iOS, Android, Windows и macOS |
+| Админка | Сводка, пользователи, заказы, промокоды, платежки и настройки |
+| Рассылки | Ручные и автоматические кампании с медиа и URL-кнопками |
 
-## Функционал
+## Tech Stack
 
-- Продажа тарифов: выбор плана, расчет стоимости, применение скидок и бонусных дней.
-- Профиль пользователя: остаток дней, дата окончания, реферальный код, статистика по приглашениям, subscription URL.
-- Бонусная система: промокоды с бонусными днями и скидкой на следующую оплату.
-- Реферальная программа: ссылка для приглашений, начисление бонуса за первого оплаченного реферала.
-- Поддержка и инструкции: отдельный раздел с подсказками для iOS, Android, Windows и macOS.
-- Админка: сводка по пользователям, заказам, активным подпискам, выручке и промокодам.
-- Поиск и управление: поиск пользователя по Telegram ID, username, внутреннему ID или реферальному коду.
-- Работа с заказами: карточка заказа, ручная перепроверка платежа, просмотр статусов и истории.
-- Управление промокодами: создание, отключение, просмотр статистики использований.
-- Рассылки: отправка по базе с сохранением форматирования, медиа и URL-кнопок.
-- Авторассылки: кампании с интервалами, автозапуском и статистикой успешных отправок.
-- Настройки на лету: переключение платежек, изменение названия бренда, канала и параметров реферальной системы.
+| Компонент | Технология |
+| --- | --- |
+| Bot framework | Python, Aiogram 3 |
+| Database | PostgreSQL, psycopg |
+| Payments | Crypto Bot, YooMoney, FreeKassa |
+| VPN panel | Remnawave API |
+| Runtime | Docker Compose или локальный Python |
 
-Бот синхронизирует локальные данные с Remnawave, обрабатывает продление подписки, повторные оплаты и неактивные счета. Это готовая основа под запуск и масштабирование VPN-сервиса.
+## Project Structure
 
-## Структура
+```text
+.
+├── dozhrvpn_bot/          # основной код бота
+├── screenshots/           # скриншоты интерфейса
+├── .env.example           # пример конфигурации
+├── docker-compose.yml     # запуск бота и PostgreSQL
+├── Dockerfile             # образ приложения
+├── main.py                # точка входа
+└── requirements.txt       # зависимости
+```
 
-- `main.py` - точка входа
-- `dozhrvpn_bot/` - основной код бота
-- `screenshots/` - скриншоты интерфейса
-- `.env.example` - пример конфигурации
-- `Dockerfile` - образ приложения
-- `docker-compose.yml` - быстрый запуск бота и PostgreSQL
-- `requirements.txt` - зависимости
-
-## Быстрый старт
+## Quick Start
 
 ### Docker Compose
 
 ```bash
-copy .env.example .env
+cp .env.example .env
 docker compose up -d --build
 docker compose logs -f bot
+```
+
+Для Windows PowerShell можно заменить первую команду:
+
+```powershell
+Copy-Item .env.example .env
 ```
 
 Перед запуском заполните в `.env` как минимум `BOT_TOKEN`, `ADMIN_IDS`, `REQUIRED_CHANNEL_ID`, `REQUIRED_CHANNEL_URL`, `REMNAWAVE_BASE_URL` и данные для авторизации в Remnawave.
 
 `docker-compose.yml` поднимает PostgreSQL и сам передает боту `DATABASE_URL`. Если нужен внешний PostgreSQL, укажите свой `DATABASE_URL` в `.env`.
 
-### Локально
+### Local Run
 
-```bash
+```powershell
 python -m venv .venv
-.venv\Scripts\activate
+.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-copy .env.example .env
+Copy-Item .env.example .env
 python main.py
 ```
 
-## Обязательные переменные
+## Configuration
 
-- `BOT_TOKEN`
-- `ADMIN_IDS`
-- `DATABASE_URL`
-- `REQUIRED_CHANNEL_ID`
-- `REQUIRED_CHANNEL_URL`
-- `REMNAWAVE_BASE_URL`
-- `REMNAWAVE_API_TOKEN` или `REMNAWAVE_LOGIN` + `REMNAWAVE_PASSWORD`
+Обязательные переменные:
+
+| Переменная | Назначение |
+| --- | --- |
+| `BOT_TOKEN` | Токен Telegram-бота |
+| `ADMIN_IDS` | Telegram ID администраторов через запятую |
+| `DATABASE_URL` | PostgreSQL DSN для локального запуска или внешней базы |
+| `REQUIRED_CHANNEL_ID` | Канал для проверки подписки |
+| `REQUIRED_CHANNEL_URL` | Публичная ссылка на канал |
+| `REMNAWAVE_BASE_URL` | URL панели Remnawave |
+| `REMNAWAVE_API_TOKEN` | API-токен Remnawave |
+| `REMNAWAVE_LOGIN` / `REMNAWAVE_PASSWORD` | Альтернатива API-токену |
 
 Минимум один платежный метод:
 
-- `CRYPTO_PAY_TOKEN`
-- или `YOOMONEY_WALLET` + `YOOMONEY_TOKEN`
-- или `FREEKASSA_SHOP_ID` + `FREEKASSA_API_KEY` + `FREEKASSA_PAYMENT_SYSTEM_ID` + `FREEKASSA_PAYER_EMAIL`
+| Провайдер | Переменные |
+| --- | --- |
+| Crypto Bot | `CRYPTO_PAY_TOKEN` |
+| YooMoney | `YOOMONEY_WALLET`, `YOOMONEY_TOKEN` |
+| FreeKassa | `FREEKASSA_SHOP_ID`, `FREEKASSA_API_KEY`, `FREEKASSA_PAYMENT_SYSTEM_ID`, `FREEKASSA_PAYER_EMAIL` |
 
 Пример DSN:
 
@@ -106,7 +143,7 @@ DATABASE_URL=postgresql://<user>:<password>@127.0.0.1:5432/remnawave_tg_bot
 
 Бот сам создает таблицы при старте.
 
-## Контакты
+## Contacts
 
 Портфолио: [https://t.me/dozhr_portfolio](https://t.me/dozhr_portfolio)
 
