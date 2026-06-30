@@ -71,8 +71,8 @@ DATABASE_URL=postgresql://127.0.0.1:5432/remnawave_tg_bot
 
 Бот сам создает таблицы при старте.
 
-## Материалы
+## Контакты
 
-[Гайд по обходу белых списков](https://teletype.in/@dozhr/A3mAw8BAmvf)
+Портфолио: [https://t.me/dozhr_portfolio](https://t.me/dozhr_portfolio)
 
-Заказать разработку: [@dozhr](https://t.me/dozhr)
+Заказать разработку - [https://t.me/dozhr](https://t.me/dozhr)
