@@ -4,6 +4,24 @@ Telegram-бот для продажи VPN-подписок: от первого 
 
 Пользователь проходит обязательную подписку на канал, выбирает тариф, оплачивает удобным способом, а бот проверяет статус счета и активирует подписку в Remnawave.
 
+## Скриншоты
+
+| Главное меню | Тарифы |
+| --- | --- |
+| <img src="screenshots/01-main-menu.jpg" alt="Главное меню" width="420"> | <img src="screenshots/02-tariffs.jpg" alt="Тарифы" width="420"> |
+
+| Инструкции | Бонусы |
+| --- | --- |
+| <img src="screenshots/03-instructions.jpg" alt="Инструкции" width="420"> | <img src="screenshots/04-bonuses.jpg" alt="Бонусы" width="420"> |
+
+| Админ-панель | Настройки |
+| --- | --- |
+| <img src="screenshots/05-admin-dashboard.jpg" alt="Админ-панель" width="420"> | <img src="screenshots/06-admin-settings.jpg" alt="Настройки" width="420"> |
+
+| Счет на оплату |
+| --- |
+| <img src="screenshots/07-invoice.jpg" alt="Счет на оплату" width="420"> |
+
 ## Что под капотом
 
 - Python + Aiogram 3
@@ -34,6 +52,7 @@ Telegram-бот для продажи VPN-подписок: от первого 
 
 - `main.py` - точка входа
 - `dozhrvpn_bot/` - основной код бота
+- `screenshots/` - скриншоты интерфейса
 - `.env.example` - пример конфигурации
 - `Dockerfile` - образ приложения
 - `docker-compose.yml` - быстрый запуск бота и PostgreSQL

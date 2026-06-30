@@ -8,6 +8,7 @@ __pycache__/
 *.sqlite
 *.sqlite3
 *.log
+screenshot/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
